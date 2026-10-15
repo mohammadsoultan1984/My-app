@@ -24,90 +24,30 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.2'
+
       - name: Generate Android WebView Project
         run: |
           mkdir -p app/src/main/assets
           mkdir -p app/src/main/java/com/princess/calc
-          mkdir -p app/src/main/res/values
           cp index.html app/src/main/assets/index.html
 
-          cat << 'EOF' > settings.gradle
-          rootProject.name = "PrincessCalc"
-          include ':app'
-          EOF
+          printf 'rootProject.name = "PrincessCalc"\ninclude ":app"\n' > settings.gradle
 
-          cat << 'EOF' > build.gradle
-          buildscript {
-              repositories { google(); mavenCentral() }
-              dependencies { classpath 'com.android.tools.build:gradle:8.1.0' }
-          }
-          allprojects { repositories { google(); mavenCentral() } }
-          EOF
+          printf 'buildscript {\n  repositories { google(); mavenCentral() }\n  dependencies { classpath "com.android.tools.build:gradle:8.1.0" }\n}\nallprojects { repositories { google(); mavenCentral() } }\n' > build.gradle
 
-          cat << 'EOF' > gradle.properties
-          android.useAndroidX=true
-          org.gradle.jvmargs=-Xmx2048m
-          EOF
+          printf 'android.useAndroidX=true\norg.gradle.jvmargs=-Xmx2048m\n' > gradle.properties
 
-          cat << 'EOF' > app/build.gradle
-          apply plugin: 'com.android.application'
-          android {
-              namespace 'com.princess.calc'
-              compileSdk 34
-              defaultConfig {
-                  applicationId "com.princess.calc"
-                  minSdk 21
-                  targetSdk 34
-                  versionCode 1
-                  versionName "1.0"
-              }
-              buildTypes {
-                  debug { minifyEnabled false }
-              }
-          }
-          EOF
+          printf 'apply plugin: "com.android.application"\nandroid {\n  namespace "com.princess.calc"\n  compileSdk 34\n  defaultConfig {\n    applicationId "com.princess.calc"\n    minSdk 21\n    targetSdk 34\n    versionCode 1\n    versionName "1.0"\n  }\n  buildTypes {\n    debug { minifyEnabled false }\n  }\n}\n' > app/build.gradle
 
-          cat << 'EOF' > app/src/main/AndroidManifest.xml
-          <?xml version="1.0" encoding="utf-8"?>
-          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-              <application
-                  android:label="حاسبة الأميرات"
-                  android:theme="@android:style/Theme.NoTitleBar">
-                  <activity
-                      android:name=".MainActivity"
-                      android:exported="true"
-                      android:screenOrientation="portrait">
-                      <intent-filter>
-                          <action android:name="android.intent.action.MAIN" />
-                          <category android:name="android.intent.category.LAUNCHER" />
-                      </intent-filter>
-                  </activity>
-              </application>
-          </manifest>
-          EOF
+          printf '<?xml version="1.0" encoding="utf-8"?>\n<manifest xmlns:android="http://schemas.android.com/apk/res/android">\n  <application android:label="حاسبة الأميرات" android:theme="@android:style/Theme.NoTitleBar">\n    <activity android:name=".MainActivity" android:exported="true" android:screenOrientation="portrait">\n      <intent-filter>\n        <action android:name="android.intent.action.MAIN" />\n        <category android:name="android.intent.category.LAUNCHER" />\n      </intent-filter>\n    </activity>\n  </application>\n</manifest>\n' > app/src/main/AndroidManifest.xml
 
-          cat << 'EOF' > app/src/main/java/com/princess/calc/MainActivity.java
-          package com.princess.calc;
-          import android.app.Activity;
-          import android.os.Bundle;
-          import android.webkit.WebSettings;
-          import android.webkit.WebView;
-          public class MainActivity extends Activity {
-              @Override
-              protected void onCreate(Bundle savedInstanceState) {
-                  super.onCreate(savedInstanceState);
-                  WebView webView = new WebView(this);
-                  WebSettings settings = webView.getSettings();
-                  settings.setJavaScriptEnabled(true);
-                  settings.setDomStorageEnabled(true);
-                  webView.loadUrl("file:///android_asset/index.html");
-                  setContentView(webView);
-              }
-          }
-          EOF
+          printf 'package com.princess.calc;\nimport android.app.Activity;\nimport android.os.Bundle;\nimport android.webkit.WebSettings;\nimport android.webkit.WebView;\npublic class MainActivity extends Activity {\n  @Override\n  protected void onCreate(Bundle savedInstanceState) {\n    super.onCreate(savedInstanceState);\n    WebView webView = new WebView(this);\n    WebSettings settings = webView.getSettings();\n    settings.setJavaScriptEnabled(true);\n    settings.setDomStorageEnabled(true);\n    webView.loadUrl("file:///android_asset/index.html");\n    setContentView(webView);\n  }\n}\n' > app/src/main/java/com/princess/calc/MainActivity.java
 
-          gradle wrapper --gradle-version 8.2
-          ./gradlew assembleDebug
+          gradle assembleDebug
           mv app/build/outputs/apk/debug/app-debug.apk princess-calculator.apk
 
       - name: Publish APK to Releases
