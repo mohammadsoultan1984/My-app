@@ -3,287 +3,237 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#ff69b4">
+  <meta name="theme-color" content="#d32f2f">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="حاسبة الأميرات">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎀</text></svg>">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%23ff85c0%22/><text x=%2250%%22 y=%2255%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2265%22>🎀</text></svg>">
-  <title>حاسبة الأميرات 🎀</title>
+  <title>مطعم بطاطسيانو</title>
+  <!-- أيقونة مستوحاة من شعار المطعم -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%23ffc107%22/><text x=%2250%%22 y=%2255%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2260%22>🍟</text></svg>">
   <style>
-    * {
-      box-sizing: border-box;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    body {
-      margin: 0;
-      padding: 15px;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #ffd6e8 0%, #fce4ec 50%, #f3e5f5 100%);
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; user-select: none; }
+    body { margin: 0; background: #1a0505; color: #fff; min-height: 100vh; display: flex; flex-direction: column; }
+    
+    /* شاشة البداية */
+    #home-screen {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-    }
-    .calculator {
-      width: 100%;
-      max-width: 380px;
-      background: #ffffff;
-      border-radius: 32px;
-      padding: 20px;
-      box-shadow: 0 12px 30px rgba(255, 105, 180, 0.25);
-      border: 4px solid #ffb6c1;
-      position: relative;
-    }
-    .header {
+      flex: 1;
+      padding: 30px;
       text-align: center;
-      color: #d81b60;
-      font-size: 1.4rem;
-      font-weight: bold;
-      margin-bottom: 12px;
+      background: linear-gradient(135deg, #2b0000 0%, #1a0505 100%);
+    }
+    .logo-box {
+      width: 140px;
+      height: 140px;
+      background: #ffc107;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      font-size: 70px;
+      box-shadow: 0 10px 25px rgba(255, 193, 7, 0.4);
+      margin-bottom: 20px;
+      border: 5px solid #d32f2f;
     }
-    .screen {
-      background: #fff0f6;
-      border: 3px solid #ffadd2;
-      border-radius: 22px;
-      padding: 15px 18px;
-      margin-bottom: 16px;
-      text-align: left;
-      direction: ltr;
-      min-height: 105px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: inset 0 3px 6px rgba(255, 105, 180, 0.1);
+    h1 {
+      color: #ffc107;
+      font-size: 2.2rem;
+      margin: 10px 0 5px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
-    .equation {
-      font-size: 1.2rem;
-      color: #ad1457;
-      min-height: 24px;
-      opacity: 0.75;
-      word-wrap: break-word;
-    }
-    .result {
-      font-size: 2.5rem;
+    .subtitle {
+      color: #ff8a80;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
       font-weight: bold;
-      color: #880e4f;
-      word-wrap: break-word;
     }
-    .message {
-      text-align: center;
-      min-height: 26px;
-      font-size: 1.05rem;
-      font-weight: bold;
-      color: #ec407a;
-      margin-bottom: 12px;
-    }
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      direction: ltr;
-    }
-    button {
+    .btn-main {
+      background: linear-gradient(135deg, #ffc107 0%, #ffa000 100%);
+      color: #1a0505;
       border: none;
-      border-radius: 20px;
-      padding: 18px 0;
-      font-size: 1.6rem;
+      padding: 16px 40px;
+      font-size: 1.3rem;
       font-weight: bold;
+      border-radius: 30px;
       cursor: pointer;
-      transition: transform 0.1s, box-shadow 0.1s;
-      box-shadow: 0 5px 0 rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+      transition: transform 0.2s;
+      width: 100%;
+      max-width: 280px;
+      margin-bottom: 15px;
     }
-    button:active {
-      transform: translateY(4px);
-      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    .btn-main:active { transform: scale(0.95); }
+
+    /* شاشة المنيو */
+    #menu-screen {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      width: 100%;
     }
-    .btn-num {
-      background: #fce4ec;
-      color: #880e4f;
-      border: 2px solid #f8bbd0;
+    .menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #d32f2f;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
     }
-    .btn-op {
-      background: linear-gradient(145deg, #ff80ab, #f50057);
+    .menu-header h2 { color: #ffc107; margin: 0; font-size: 1.5rem; }
+    .back-btn {
+      background: #333;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* الأقسام */
+    .section-title {
+      background: #d32f2f;
       color: white;
-      font-size: 2rem;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 15px 0 10px;
+      box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .btn-clear {
-      background: #ce93d8;
-      color: #4a148c;
-      font-size: 1.25rem;
-      grid-column: span 2;
+    .items-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-bottom: 15px;
     }
-    .btn-back {
-      background: #f48fb1;
-      color: #880e4f;
-      font-size: 1.4rem;
-      grid-column: span 2;
+    .item-card {
+      background: #2a0a0a;
+      border: 1px solid #4a1515;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .btn-zero {
-      grid-column: span 2;
-    }
-    .btn-equal {
-      background: linear-gradient(145deg, #ab47bc, #7b1fa2);
+    .item-card span:first-child { color: #fff; }
+    .badge { background: #ffc107; color: #1a0505; font-size: 0.8rem; padding: 3px 8px; border-radius: 6px; font-weight: bold; }
+
+    /* زر الخروج */
+    .btn-exit {
+      background: #b71c1c;
       color: white;
-      grid-column: span 2;
-      font-size: 2rem;
+      border: none;
+      padding: 14px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 16px;
+      cursor: pointer;
+      margin: 20px 0;
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(183, 28, 28, 0.4);
+    }
+    .contact-info {
+      text-align: center;
+      color: #ffc107;
+      font-size: 0.95rem;
+      margin-top: 10px;
+      padding-bottom: 20px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <div class="calculator">
-    <div class="header">🌸 حاسبة الأميرات 🎀</div>
-    <div class="screen">
-      <div class="equation" id="equation"></div>
-      <div class="result" id="display">0</div>
+  <!-- الصفحة الرئيسية -->
+  <div id="home-screen">
+    <div class="logo-box">🍟</div>
+    <h1>مطعم بطاطسيانو</h1>
+    <div class="subtitle">سندوتشات على قد الإيد ✨</div>
+    <button class="btn-main" onclick="showMenu()">قائمة المنيو 📖</button>
+  </div>
+
+  <!-- صفحة المنيو -->
+  <div id="menu-screen">
+    <div class="menu-header">
+      <h2>🍟 منيو بطاطسيانو</h2>
+      <button class="back-btn" onclick="showHome()">الرئيسية 🏠</button>
     </div>
-    <div class="message" id="msg">هيا نحسب معاً! ✨</div>
 
-    <div class="buttons">
-      <button class="btn-clear" onclick="clearAll()">مسح 🧹</button>
-      <button class="btn-back" onclick="backspace()">تراجع ⌫</button>
-
-      <button class="btn-num" onclick="appendNum('7')">7</button>
-      <button class="btn-num" onclick="appendNum('8')">8</button>
-      <button class="btn-num" onclick="appendNum('9')">9</button>
-      <button class="btn-op" onclick="chooseOp('+')" title="جمع">+</button>
-
-      <button class="btn-num" onclick="appendNum('4')">4</button>
-      <button class="btn-num" onclick="appendNum('5')">5</button>
-      <button class="btn-num" onclick="appendNum('6')">6</button>
-      <button class="btn-op" onclick="chooseOp('-')" title="طرح">−</button>
-
-      <button class="btn-num" onclick="appendNum('1')">1</button>
-      <button class="btn-num" onclick="appendNum('2')">2</button>
-      <button class="btn-num" onclick="appendNum('3')">3</button>
-      <button class="btn-op" onclick="chooseOp('+')" title="جمع">+</button>
-
-      <button class="btn-num btn-zero" onclick="appendNum('0')">0</button>
-      <button class="btn-equal" onclick="calculate()">= 💖</button>
+    <!-- 1. قسم سوري -->
+    <div class="section-title">🌯 قسم السوري</div>
+    <div class="items-grid">
+      <div class="item-card"><span>بطاطس سوري تومية</span><span class="badge">سوري</span></div>
+      <div class="item-card"><span>بطاطس سوري سبايسي</span><span class="badge">سوري</span></div>
+      <div class="item-card"><span>بطاطس سوري موتزاريلا</span><span class="badge">سوري</span></div>
+      <div class="item-card"><span>بطاطس سوري صوص جبنة</span><span class="badge">سوري</span></div>
+      <div class="item-card"><span>بطاطس سوري صوص رانش</span><span class="badge">سوري</span></div>
+      <div class="item-card"><span>بطاطس سوري هالبينو</span><span class="badge">سوري</span></div>
+      <div class="item-card"><span>بطاطس سوري باربيكيو</span><span class="badge">سوري</span></div>
+      <div class="item-card"><span>كبدة سوري</span><span class="badge">سوري</span></div>
     </div>
+
+    <!-- 2. قسم فينو -->
+    <div class="section-title">🥖 قسم الفينو والسندوتشات</div>
+    <div class="items-grid">
+      <div class="item-card"><span>سندوتش جبنة كيري</span><span class="badge">فينو</span></div>
+      <div class="item-card"><span>سندوتش جبنة رومي</span><span class="badge">فينو</span></div>
+      <div class="item-card"><span>سندوتش لانشون</span><span class="badge">فينو</span></div>
+      <div class="item-card"><span>سندوتش حلاوة طحينية</span><span class="badge">فينو</span></div>
+      <div class="item-card"><span>سندوتش مربى</span><span class="badge">فينو</span></div>
+      <div class="item-card"><span>سندوتش ديناميت</span><span class="badge">فينو</span></div>
+      <div class="item-card"><span>حلاوة طحينية + مربى + عسل</span><span class="badge">مكس</span></div>
+      <div class="item-card"><span>سندوتش عسل</span><span class="badge">فينو</span></div>
+    </div>
+
+    <!-- 3. قسم إندومي -->
+    <div class="section-title">🍜 قسم الإندومي</div>
+    <div class="items-grid">
+      <div class="item-card"><span>إندومي عادي</span><span class="badge">إندومي</span></div>
+      <div class="item-card"><span>إندومي لانشون</span><span class="badge">إندومي</span></div>
+      <div class="item-card"><span>إندومي جبنة مثلثات</span><span class="badge">إندومي</span></div>
+    </div>
+
+    <!-- 4. قسم باكيت بطاطس -->
+    <div class="section-title">🍟 قسم باكيت بطاطس</div>
+    <div class="items-grid">
+      <div class="item-card"><span>باكيت بطاطس عادي</span><span class="badge">باكيت</span></div>
+      <div class="item-card"><span>باكيت بطاطس صوص رانش</span><span class="badge">باكيت</span></div>
+      <div class="item-card"><span>باكيت بطاطس صوص جبنة</span><span class="badge">باكيت</span></div>
+      <div class="item-card"><span>باكيت بطاطس هالبينو</span><span class="badge">باكيت</span></div>
+      <div class="item-card"><span>باكيت بطاطس صوص باربيكيو</span><span class="badge">باكيت</span></div>
+    </div>
+
+    <div class="contact-info">📞 أطلب الآن: 01039383701</div>
+    <button class="btn-exit" onclick="exitApp()">خروج من التطبيق 🚪</button>
   </div>
 
   <script>
-    let current = '0';
-    let previous = '';
-    let operation = null;
-    let resetNext = false;
-
-    const displayEl = document.getElementById('display');
-    const equationEl = document.getElementById('equation');
-    const msgEl = document.getElementById('msg');
-
-    const praises = [
-      'شطورة يا أميرة! 🌸',
-      'إجابة رائعة! 💖',
-      'ممتازة جداً! ✨',
-      'أحسنتِ يا جميلة! 🎀',
-      'ذكية ومميزة! 🦄'
-    ];
-
-    // صوت لطيف عند الضغط على الأزرار
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playTone(freq = 600, duration = 0.08) {
-      try {
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + duration);
-      } catch (e) {}
+    function showMenu() {
+      document.getElementById('home-screen').style.display = 'none';
+      document.getElementById('menu-screen').style.display = 'flex';
+      window.scrollTo(0, 0);
     }
-
-    function updateScreen() {
-      displayEl.textContent = current;
-      if (operation != null) {
-        equationEl.textContent = `${previous}${operation === '+' ? '+' : '−'}`;
-      } else {
-        equationEl.textContent = '';
-      }
+    function showHome() {
+      document.getElementById('menu-screen').style.display = 'none';
+      document.getElementById('home-screen').style.display = 'flex';
+      window.scrollTo(0, 0);
     }
-
-    function appendNum(num) {
-      playTone(550, 0.07);
-      if (current === '0' || resetNext) {
-        current = num;
-        resetNext = false;
-      } else if (current.length < 10) {
-        current += num;
+    function exitApp() {
+      if (confirm('هل تريد الخروج من التطبيق؟')) {
+        window.close();
+        // كبديل لإغلاق المتصفح في بعض الهواتف
+        document.body.innerHTML = '<div style="display:flex;justify-content:center;align-items:center;height:100vh;background:#1a0505;color:#ffc107;font-size:1.5rem;text-align:center;">شكراً لاستخدامك تطبيق مطعم بطاطسيانو 🍟<br>إلى اللقاء!</div>';
       }
-      updateScreen();
-    }
-
-    function chooseOp(op) {
-      playTone(700, 0.09);
-      if (operation !== null && !resetNext) {
-        calculate(false);
-      }
-      previous = current;
-      operation = op;
-      resetNext = true;
-      msgEl.textContent = op === '+' ? 'عملية جمع ➕🌸' : 'عملية طرح ➖🌸';
-      updateScreen();
-    }
-
-    function calculate(showPraise = true) {
-      if (operation === null || resetNext) return;
-      const prev = parseFloat(previous);
-      const curr = parseFloat(current);
-      if (isNaN(prev) || isNaN(curr)) return;
-
-      let result = 0;
-      if (operation === '+') {
-        result = prev + curr;
-      } else if (operation === '-') {
-        result = prev - curr;
-      }
-
-      equationEl.textContent = `${previous} ${operation === '+' ? '+' : '−'}${current} =`;
-      current = String(result);
-      operation = null;
-      previous = '';
-      resetNext = true;
-      displayEl.textContent = current;
-
-      if (showPraise) {
-        playTone(880, 0.18);
-        const randomPraise = praises[Math.floor(Math.random() * praises.length)];
-        msgEl.textContent = randomPraise;
-      }
-    }
-
-    function clearAll() {
-      playTone(400, 0.1);
-      current = '0';
-      previous = '';
-      operation = null;
-      resetNext = false;
-      msgEl.textContent = 'هيا نحسب من جديد! ✨';
-      updateScreen();
-    }
-
-    function backspace() {
-      playTone(480, 0.07);
-      if (resetNext) return;
-      if (current.length > 1) {
-        current = current.slice(0, -1);
-      } else {
-        current = '0';
-      }
-      updateScreen();
     }
   </script>
 </body>
